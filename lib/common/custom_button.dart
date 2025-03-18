@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lungv_app/Themes/colors.dart';
+import 'package:lungv_app/Themes/text_styles.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -10,7 +12,7 @@ class CustomButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.onPressed,
-    this.color = Colors.blue,
+    this.color = AppColor.primaryOrange,
     this.borderRadius = 10.0,
   });
 
@@ -31,11 +33,7 @@ class CustomButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppTextStyles.normal15,
         ),
       ),
     );

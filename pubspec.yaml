@@ -74,6 +74,11 @@ flutter:
     - assets/images/meduim.png
     - assets/images/high.png
     - assets/images/recent.png
+    - assets/images/high_gradient.png
+    - assets/images/Low_gradient.png
+    - assets/images/low_icon.png
+    - assets/images/meduim_icon.png
+    - assets/images/high_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

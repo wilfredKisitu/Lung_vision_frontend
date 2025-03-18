@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:lungv_app/Themes/text_styles.dart';
 import 'package:lungv_app/common/count_with_unit.dart';
 import 'package:lungv_app/common/infor_card.dart';
-import 'package:lungv_app/common/notification_card.dart';
+import 'package:lungv_app/common/profile_card_w.dart';
 import 'package:lungv_app/common/symptom_graph.dart';
 import 'package:lungv_app/providers/Diagnosis/diagnosis_provider.dart';
 
@@ -29,6 +29,7 @@ class HomeScreen extends ConsumerWidget {
             children: [
               Row(
                 children: [
+                  SizedBox(height: 20,),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: diagnosisState.when(
@@ -47,6 +48,7 @@ class HomeScreen extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              SizedBox(height: 20,),
                               if (latestDiagnosis != null) ...[
                                 CountWithUnit(
                                   count: diagnosis.length,
@@ -57,6 +59,7 @@ class HomeScreen extends ConsumerWidget {
                                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                                   child: Text(
                                     _formatDate(latestDiagnosis.createdAt.toString()), 
+                                    style: AppTextStyles.normal14,
                                   ),
                                 ),
                               ] else ...[
@@ -78,18 +81,21 @@ class HomeScreen extends ConsumerWidget {
                   // image
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
+                      horizontal: 10,
                       vertical: 20,
                     ),
-                    child: Image.asset('assets/images/diagnose.png'),
+                    child: Image.asset('assets/images/diagnose.png', height: 120,),
                   ),
                 ],
               ),
               // Diagnosis summary
+              SizedBox(height: 20,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: Text('Diagnosis Summary', style: AppTextStyles.normal2),
+                child: Text('Diagnosis Summary', style: AppTextStyles.headingType1),
               ),
+              SizedBox(height: 15,),
+              // statistic cards
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Padding(
@@ -104,28 +110,31 @@ class HomeScreen extends ConsumerWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: InfoCard(
-                                imagePath: 'assets/images/low.png',
-                                title: 'Low Risk',
+                                imagePath: 'assets/images/low_icon.png',
+                                title: 'LOW',
                                 count: predictionCounts.low,
-                                unit: 'cases',
+                                unit: 'Recorded Low Cases',
+                                backgroundImagePath: 'assets/images/Low_gradient.png',
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: InfoCard(
-                                imagePath: 'assets/images/meduim.png',
-                                title: 'Meduim',
+                                imagePath: 'assets/images/meduim_icon.png',
+                                title: 'MEDIUM',
                                 count: predictionCounts.medium,
-                                unit: 'cases',
+                                unit: 'Recorded Meduim Cases',
+                                backgroundImagePath: 'assets/images/Low_gradient.png',
                               ),
                             ),
                             Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: InfoCard(
-                                  imagePath: 'assets/images/high.png',
-                                  title: 'High',
+                                  imagePath: 'assets/images/high_icon.png',
+                                  title: 'HIGH',
                                   count: predictionCounts.high,
-                                  unit: 'cases',
+                                  unit: 'Recorded High Cases',
+                                  backgroundImagePath: 'assets/images/high_gradient.png',
                                 ),
                               ),
                           ],
@@ -136,14 +145,15 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ),
               // Latest Diagnosis
+              SizedBox(height: 20,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: Text('Latest Diagnosis', style: AppTextStyles.normal2),
+                child: Text('Latest Diagnosis', style: AppTextStyles.headingType1),
               ),
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: SizedBox(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,19 +167,20 @@ class HomeScreen extends ConsumerWidget {
                   // image
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
+                      horizontal: 5,
                       vertical: 20,
                     ),
-                    child: Image.asset('assets/images/recent.png'),
+                    child: Image.asset('assets/images/recent.png', height: 100,),
                   ),
                 ],
               ),
               // Top 5 symptoms
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                child: Text('Top 5 symptoms', style: AppTextStyles.normal2),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: Text('Top 5 symptoms', style: AppTextStyles.normalType2),
               ),
               // Graph plots
+              SizedBox(height: 30,),
               Center(
                 child: diagnosisState.when(data: (diagnosis) {
                   if(diagnosis.isEmpty){
@@ -191,11 +202,11 @@ class HomeScreen extends ConsumerWidget {
                 error: (err, __) => Center(child: Text('Error loading symptoms...')), 
                 loading: () => Center(child: CircularProgressIndicator())),
               ),
-      
+              SizedBox(height: 20,),
               // History
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                child: Text('History', style: AppTextStyles.normal2),
+                child: Text('History', style: AppTextStyles.headingType1),
               ),
               // History cards
               LayoutBuilder(
@@ -213,13 +224,15 @@ class HomeScreen extends ConsumerWidget {
                       physics: BouncingScrollPhysics(), 
                       itemBuilder: (context, index) {
                         final notification = notifications[index];
-                        return NotificationCard(
-                          prefixIcon: getRiskIcon(notification['prediction']),
-                          title: notification['date'],
-                          risk: getRiskText(notification['prediction']),
-                          unit: 'Risk',
-                          onTap: () {context.push('/details/${notification['id']}');},
-                        );
+                        return ProfileCardW(
+                          prefixIcon: getRiskIcon(notification['prediction']), 
+                          title: notification['date'], 
+                          subtitle: getRiskText(notification['prediction']), 
+                          onTap: () {
+                            context.push('/details/${notification['id']}');
+                          }, 
+                          trailingIcon: Icons.chevron_right
+                          );
                       },
                     ),
                   );
@@ -251,10 +264,10 @@ Widget _risk(String risk, String unit){
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Text(risk.toUpperCase(), style: AppTextStyles.heading8),
+        Text(risk.toUpperCase(), style: AppTextStyles.headingType2),
         Padding(
           padding: const EdgeInsets.all(5.0),
-          child: Text(unit, style: AppTextStyles.normal1),
+          child: Text(unit, style: AppTextStyles.normal14),
         ),
       ],
     );
@@ -278,12 +291,12 @@ String getRiskText(int prediction) {
 String getRiskIcon(int prediction) {
   switch (prediction) {
     case 0:
-      return 'assets/images/low.png';
+      return 'assets/images/low_icon.png';
     case 1:
-      return 'assets/images/meduim.png';
+      return 'assets/images/meduim_icon.png';
     case 2:
-      return 'assets/images/high.png';
+      return 'assets/images/high_icon.png';
     default:
-      return 'assets/images/low.png'; // Default icon
+      return 'assets/images/low_icon.png'; // Default icon
   }
 }

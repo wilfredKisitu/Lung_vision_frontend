@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lungv_app/Themes/colors.dart';
 import 'package:lungv_app/Themes/text_styles.dart';
 
 class ForecastBar extends StatelessWidget {
@@ -10,32 +11,44 @@ class ForecastBar extends StatelessWidget {
     super.key,
     required this.symptom,
     required this.scale,
-    this.maxScale = 10,
+    this.maxScale = 9,
   });
 
   @override
   Widget build(BuildContext context) {
     double barHeight = (scale / maxScale) * 250;
 
+    // Background height adjusts based on maxScale value
+    double backgroundHeight = (maxScale > 0) ? 250 : 0;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        // Forecast Power Value (Top)
-        Text(
-          scale.toStringAsFixed(0),
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-
         const SizedBox(height: 4),
 
-        // The Bar Representation
-        Container(
-          width: 30, // Bar width
-          height: barHeight.clamp(10, 200), // Min height 10, max height 200
-          decoration: BoxDecoration(
-            color: Colors.blue, // Bar color
-            borderRadius: BorderRadius.circular(10),
-          ),
+        Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            // Dynamic gray background indicating max height
+            Container(
+              width: 30, 
+              height: backgroundHeight, 
+              decoration: BoxDecoration(
+                color: AppColor.primaryGray, 
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+
+            // The actual colored bar scaled to the current scale
+            Container(
+              width: 30,
+              height: barHeight.clamp(10, 200), // Min height 10, max height 200
+              decoration: BoxDecoration(
+                color: AppColor.primaryGreen, // Bar color
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+          ],
         ),
 
         const SizedBox(height: 15),
@@ -43,8 +56,8 @@ class ForecastBar extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 2.0),
           child: SizedBox(
-            width: 70, // Ensure text doesn't make bars misaligned
-            height: 40, // Fixed height for consistency
+            width: 70, 
+            height: 40, 
             child: Text(
               symptom,
               style: AppTextStyles.normal9,

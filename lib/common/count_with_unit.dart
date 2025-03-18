@@ -16,7 +16,7 @@ class CountWithUnit extends StatelessWidget {
         Text('$count', style: AppTextStyles.heading3),
         Padding(
           padding: const EdgeInsets.all(5.0),
-          child: Text(unit, style: AppTextStyles.normal1),
+          child: Text(unit, style: AppTextStyles.normal14),
         ),
       ],
     );

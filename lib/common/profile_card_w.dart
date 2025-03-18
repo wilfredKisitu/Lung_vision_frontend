@@ -3,7 +3,7 @@ import 'package:lungv_app/Themes/colors.dart';
 import 'package:lungv_app/Themes/text_styles.dart';
 
 class ProfileCardW extends StatelessWidget {
-  final IconData prefixIcon;
+  final dynamic prefixIcon; // Can be IconData or String (image path)
   final String title;
   final String subtitle;
   final VoidCallback onTap;
@@ -24,16 +24,11 @@ class ProfileCardW extends StatelessWidget {
       color: AppColor.primaryWhite,
       elevation: 0,
       child: ListTile(
-        leading: Icon(prefixIcon, size: 24), // Prefix Icon
+        leading: _buildLeadingIcon(), // Dynamically build the leading widget
         title: Text(title, style: AppTextStyles.normal3),
-        subtitle: Row(
-          crossAxisAlignment: CrossAxisAlignment.end, // Align unit at bottom
-          children: [
-            Text(
-              subtitle, // Large count
-              style: AppTextStyles.normal2,
-            ),
-          ],
+        subtitle: Text(
+          subtitle,
+          style: AppTextStyles.normal2,
         ),
         trailing: IconButton(
           icon: Icon(trailingIcon, size: 24),
@@ -41,5 +36,15 @@ class ProfileCardW extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildLeadingIcon() {
+    if (prefixIcon is IconData) {
+      return Icon(prefixIcon, size: 24, color: Colors.black);
+    } else if (prefixIcon is String) {
+      return Image.asset(prefixIcon, width: 30, height: 30, fit: BoxFit.cover);
+    } else {
+      return const SizedBox.shrink(); // Empty widget if the type is invalid
+    }
   }
 }

@@ -49,9 +49,10 @@ class _LoginScreenState extends State<LoginScreen>
       ),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 15,),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 30, 20, 5),
               child: Text(
@@ -59,23 +60,23 @@ class _LoginScreenState extends State<LoginScreen>
                 style: AppTextStyles.heading1,
               ),
             ),
+            SizedBox(height: 10,),
             Padding(
-              padding: const EdgeInsets.fromLTRB(30, 5, 30, 20),
+              padding: const EdgeInsets.fromLTRB(20, 5, 30, 20),
               child: Text(
                 'Sign up or log in to assess your risk of developing lung cancer and take proactive steps for your health',
                 style: AppTextStyles.heading2,
-                textAlign: TextAlign.center,
               ),
             ),
-
+            SizedBox(height: 15,),
             Column(
               children: [
                 TabBar(
                   controller: _tabController,
-                  tabs: const [Tab(text: "Login"), Tab(text: "Signup")],
+                  tabs: const [Tab(text: "Login",), Tab(text: "Signup")],
                 ),
                 SizedBox(
-                  height: 600, //
+                  height: 800, //
                   child: TabBarView(
                     controller: _tabController,
                     children: [LoginTab(), SignupTab()],
@@ -116,6 +117,7 @@ class LoginTab extends ConsumerWidget {
     });
     return Column(
       children: [
+        SizedBox(height: 15,),
         // Email
         Center(
           child: Padding(
@@ -128,6 +130,7 @@ class LoginTab extends ConsumerWidget {
             ),
           ),
         ),
+        SizedBox(height: 15,),
         // Password
         Center(
           child: Padding(
@@ -140,11 +143,12 @@ class LoginTab extends ConsumerWidget {
             ),
           ),
         ),
+        
         Padding(
           padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [Text('Forgot Password?', textAlign: TextAlign.left)],
+            children: [Text('Forgot Password?', textAlign: TextAlign.left, style: AppTextStyles.normal14,)],
           ),
         ),
 
@@ -165,7 +169,7 @@ class LoginTab extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(30.0, 10, 30, 30),
           child: Text(
             'By signing up you agree to our Terms of Service and Privacy Policy',
-            textAlign: TextAlign.center,
+            style: AppTextStyles.normal16,
           ),
         ),
         // handling auth State
@@ -213,27 +217,33 @@ class SignupTab extends ConsumerWidget {
 
     return Column(
       children: [
+        SizedBox(height: 15,),
         _buildTextField(nameController, 'Enter your name', Icons.person),
+        SizedBox(height: 10,),
         _buildTextField(emailController, 'Enter your email', Icons.email),
+        SizedBox(height: 10,),
         _buildTextField(
           yearOfBirthController,
           'Year of Birth YYYY',
           Icons.calendar_month,
         ),
+        SizedBox(height: 10,),
         _buildTextField(genderController, 'Gender M / F', Icons.male),
+        SizedBox(height: 10,),
         _buildTextField(
           passwordController,
           'Enter your password',
           Icons.lock,
           obscureText: true,
         ),
+        SizedBox(height: 10,),
         _buildTextField(
           confirmPasswordController,
           'Confirm password',
           Icons.lock,
           obscureText: true,
         ),
-
+        SizedBox(height: 30,),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
           child: Center(
@@ -259,12 +269,12 @@ class SignupTab extends ConsumerWidget {
             ),
           ),
         ),
-
+        SizedBox(height: 10,),
         Padding(
           padding: const EdgeInsets.fromLTRB(30.0, 15, 10, 30),
           child: Text(
             'By signing up you agree to our Terms of Service and Privacy Policy',
-            textAlign: TextAlign.center,
+            style: AppTextStyles.normal16,
           ),
         ),
 

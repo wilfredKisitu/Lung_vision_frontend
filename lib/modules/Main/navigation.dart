@@ -31,11 +31,11 @@ class BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('assets/images/logo_small.png'),
-        centerTitle: true,
-        backgroundColor: AppColor.primaryWhite,
-      ),
+      // appBar: AppBar(
+      //   title: Image.asset('assets/images/logo_small.png'),
+      //   centerTitle: true,
+      //   backgroundColor: AppColor.primaryWhite,
+      // ),
       backgroundColor: AppColor.primaryWhite,
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lungv_app/Themes/text_styles.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -25,6 +26,7 @@ class CustomTextField extends StatelessWidget {
         obscureText: obscureText,
         keyboardType: keyboardType,
         decoration: InputDecoration(
+          hintStyle: AppTextStyles.normal14,
           hintText: hintText,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
