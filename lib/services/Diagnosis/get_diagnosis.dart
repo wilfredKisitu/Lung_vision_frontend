@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ApiService {
-  static const String baseUrl = "http://localhost:3000";
+  static const String baseUrl = "http://159.89.32.143:3000";
 
   // **Fetch User Data (User ID & Token)**
   static Future<Map<String, dynamic>> getUserData() async {

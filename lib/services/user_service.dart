@@ -3,7 +3,7 @@ import 'package:lungv_app/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class UserService {
-  final String baseUrl = 'http://localhost:3000';
+  final String baseUrl = 'http://159.89.32.143:3000';
 
   Future<User> createUser(User user) async {
     final response = await http.post(

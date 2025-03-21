@@ -63,7 +63,7 @@ class HomeScreen extends ConsumerWidget {
                                   ),
                                 ),
                               ] else ...[
-                                Text('No diagnosis data available'),
+                                Text('No diagnosis'),
                               ],
                             ],
                           ),
@@ -226,7 +226,8 @@ class HomeScreen extends ConsumerWidget {
                         final notification = notifications[index];
                         return ProfileCardW(
                           prefixIcon: getRiskIcon(notification['prediction']), 
-                          title: notification['date'], 
+                          // title: notification['date'], 
+                          title: _formatDate(notification['date'].toString()),
                           subtitle: getRiskText(notification['prediction']), 
                           onTap: () {
                             context.push('/details/${notification['id']}');

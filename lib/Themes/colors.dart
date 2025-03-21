@@ -10,4 +10,5 @@ class AppColor {
   static final Color blackWithOpacity50 = Color(0x80000000);
   static final Color primaryGray = Color(0xFFF8F8F8);
   static final Color primaryGreen = Color(0xFF51BB92);
+  static final Color symptomColor = Color(0xFFF8F8F8);
 }

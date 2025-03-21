@@ -4,7 +4,7 @@ import 'package:lungv_app/models/login_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  final String baseUrl = "http://localhost:3000";
+  final String baseUrl = "http://159.89.32.143:3000";
 
   Future<Auth> loginUser(String email, String password) async {
     try {

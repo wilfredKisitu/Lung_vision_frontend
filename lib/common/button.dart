@@ -12,7 +12,7 @@ class SmallButton extends StatelessWidget {
     super.key,
     required this.content,
     required this.onPressed,
-    this.color = Colors.blue,
+    this.color = AppColor.primaryOrange,
     this.borderRadius = 10.0,
   });
 
@@ -36,7 +36,7 @@ class SmallButton extends StatelessWidget {
               : Icon(
                 content as IconData, // Display icon
                 color: AppColor.primaryWhite,
-                size: 24,
+                size: 20,
               ),
     );
   }

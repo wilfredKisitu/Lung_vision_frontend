@@ -22,8 +22,30 @@ class AppTextStyles {
     fontSize: 17,
     color: AppColor.primaryWhite
   );
+  static final TextStyle dateStyleWhite = GoogleFonts.robotoCondensed(
+    fontSize: 14,
+    color: AppColor.primaryWhite
+  );
+  static final TextStyle dateStyleBlack = GoogleFonts.robotoCondensed(
+    fontSize: 14,
+    color: AppColor.primaryBlack
+  );
+  static final TextStyle normalType16 = GoogleFonts.robotoCondensed(
+    fontSize: 17,
+    color: AppColor.primaryBlack
+  );
+  static final TextStyle normalType15 = GoogleFonts.robotoCondensed(
+    fontSize: 17,
+    color: AppColor.primaryBlack,
+    fontWeight: FontWeight.w600
+  );
   static final TextStyle heading3 = GoogleFonts.robotoCondensed(
     fontSize: 75,
+    fontWeight: FontWeight.bold,
+    color: AppColor.primaryOrange
+  );
+  static final TextStyle headingType3 = GoogleFonts.robotoCondensed(
+    fontSize: 65,
     fontWeight: FontWeight.bold,
     color: AppColor.primaryOrange
   );
@@ -47,7 +69,12 @@ class AppTextStyles {
   );
   static final TextStyle normalType2 = GoogleFonts.robotoCondensed(
     fontSize: 20,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w500,
+    color: AppColor.primaryBlack
+  );
+  static final TextStyle normalType3 = GoogleFonts.robotoCondensed(
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
     color: AppColor.primaryBlack
   );
   static final TextStyle headingType1 = GoogleFonts.robotoCondensed(
@@ -78,6 +105,11 @@ class AppTextStyles {
     fontSize: 24,
     fontWeight: FontWeight.normal,
   );
+  static final TextStyle headingType5 = GoogleFonts.robotoCondensed(
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+    color: AppColor.primaryOrange
+  );
   static final TextStyle heading6 = GoogleFonts.robotoCondensed(
     fontSize: 20,
     fontWeight: FontWeight.bold,
@@ -88,7 +120,11 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
   );
   static final TextStyle normal6 = GoogleFonts.robotoCondensed(
-    fontSize: 16,
+    fontSize: 17,
+    fontWeight: FontWeight.normal,
+  );
+  static final TextStyle normalType6 = GoogleFonts.robotoCondensed(
+    fontSize: 18,
     fontWeight: FontWeight.normal,
   );
   static final TextStyle normal7 = GoogleFonts.robotoCondensed(
@@ -108,7 +144,7 @@ class AppTextStyles {
   );
 
   static final TextStyle btn1 = GoogleFonts.robotoCondensed(
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: FontWeight.normal,
     color: AppColor.primaryWhite,
   );

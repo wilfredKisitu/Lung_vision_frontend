@@ -13,10 +13,10 @@ class CountWithUnit extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Text('$count', style: AppTextStyles.heading3),
+        Text('$count'.toUpperCase(), style: AppTextStyles.headingType3),
         Padding(
           padding: const EdgeInsets.all(5.0),
-          child: Text(unit, style: AppTextStyles.normal14),
+          child: Text(unit, style: AppTextStyles.normalType16),
         ),
       ],
     );

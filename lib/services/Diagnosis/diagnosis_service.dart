@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:lungv_app/models/login_user.dart';
 
 class DiagnosisService {
-  final String baseUrl = "http://localhost:3000";
+  final String baseUrl = "http://159.89.32.143:3000";
 
   Future<List<Diagnosis>> fetchUserDiagnosis(Auth auth) async {
     try {

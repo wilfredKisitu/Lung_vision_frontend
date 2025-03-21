@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:lungv_app/Themes/colors.dart';
 import 'package:lungv_app/Themes/text_styles.dart';
 import 'package:lungv_app/common/count_with_unit.dart';
@@ -19,9 +20,9 @@ class DetailsScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: AppColor.primaryWhite,
       appBar: AppBar(
-        title: Image.asset('assets/images/logo_small.png'),
+        // title: Image.asset('assets/images/logo_small.png'),
         backgroundColor: AppColor.primaryWhite,
-        centerTitle: true,
+        // centerTitle: true,
         leading: IconButton(
           onPressed: () {
             context.go('/main');
@@ -45,6 +46,7 @@ class DetailsScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // **Risk Section**
+                  
                   Row(
                     children: [
                       Padding(
@@ -57,10 +59,16 @@ class DetailsScreen extends ConsumerWidget {
                                 count: getRiskText(int.tryParse(diagnosis.prediction) ?? -1),
                                 unit: 'Risk',
                               ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                                child: Text(diagnosis.createdAt.toLocal().toString().split(' ')[0]),
+                              Padding(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              child: Text(
+                                _formatDate(diagnosis.createdAt.toString()),
+                                style: AppTextStyles.normal14,
+                              ), 
                               ),
+                              // Padding(
+                              //   padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                              //   child: Text(diagnosis.createdAt.toLocal().toString().split(' ')[0]),
+                              // ),
                             ],
                           ),
                         ),
@@ -79,9 +87,10 @@ class DetailsScreen extends ConsumerWidget {
                   // **Top Symptoms Section**
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    child: Text('Top 5 Symptoms', style: AppTextStyles.normal2),
+                    child: Text('Top 5 Symptoms', style: AppTextStyles.headingType1),
                   ),
                   // **Graph Plots**
+                  SizedBox(height: 40,),
                   Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -95,19 +104,24 @@ class DetailsScreen extends ConsumerWidget {
                     ),
                   ),
                   // **Other Symptoms Section**
+                  SizedBox(height: 40,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    child: Text('Other Symptoms', style: AppTextStyles.normal2),
+                    child: Text('Other Symptoms', style: AppTextStyles.headingType1),
                   ),
                   // **Symptom Cards**
+                  SizedBox(height: 10,),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: remainingSymptoms.map((symptom) {
-                        return OtherSymptoms(
-                          symptom: symptom['name'],
-                          risk: rankTranslate(symptom['rank']),
-                          rank: symptom['rank'],
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 8),
+                          child: NotificationCard(
+                            imagePath: getIcon(symptom['rank']), 
+                            riskText: symptom['name'],
+                            predictedRisk: rankTranslate(symptom['rank']),
+                            ),
                         );
                       }).toList(),
                     ),
@@ -138,6 +152,8 @@ String getRiskText(int prediction) {
   }
 }
 
+
+
 // Translate ranks 
 String rankTranslate(int rank) {
   if (rank <= 3) {
@@ -146,5 +162,29 @@ String rankTranslate(int rank) {
     return 'Moderate';
   } else {
     return 'High';
+  }
+}
+
+String getIcon(int rank) {
+  if (rank <= 3) {
+    return 'assets/images/notification_low.png';
+  } else if (rank > 3 && rank <= 6) {
+    return 'assets/images/notification_meduim.png';
+  } else {
+    return 'assets/images/notification_high.png';
+  }
+}
+
+// formart data
+String _formatDate(String? dateString) {
+  if (dateString == null || dateString.isEmpty) {
+    return 'Unknown Date'; // Handle null or empty strings
+  }
+
+  try {
+    final DateTime parsedDate = DateTime.parse(dateString);
+    return DateFormat('d MMM, yyyy').format(parsedDate);
+  } catch (e) {
+    return 'Invalid Date'; // Handle parsing errors
   }
 }

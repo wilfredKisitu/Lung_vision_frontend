@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lungv_app/Themes/text_styles.dart';
 import 'package:lungv_app/common/button.dart';
 import 'package:lungv_app/common/circular_indicator.dart';
+import 'package:lungv_app/common/date_scroller.dart';
 import 'package:lungv_app/common/slider/slider.dart';
 import 'package:lungv_app/common/slider/slider_provider.dart';
 import 'package:lungv_app/modules/Diagnose/paramter_provider.dart';
@@ -24,24 +25,21 @@ class DiagnoseScreen extends ConsumerWidget {
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            SizedBox(height: 4,),
+            DateScroller(),
+            SizedBox(height: 10,),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 10, 5),
+              padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
               child: Text(
-                'New',
+                'New Diagnosis',
                 textAlign: TextAlign.left,
-                style: AppTextStyles.heading6,
+                style: AppTextStyles.headingType1,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 0, 10, 10),
-              child: Text(
-                'Diagnosis',
-                textAlign: TextAlign.left,
-                style: AppTextStyles.heading7,
-              ),
-            ),
-
+            
+            SizedBox(height: 10,),
             // Symptoms
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -49,11 +47,11 @@ class DiagnoseScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 70,
-                    width: 250,
+                    height: 80,
+                    width: 280,
                     child: Text(
                       symptomQuestions[currentIndex].question,
-                      style: AppTextStyles.normal6,
+                      style: AppTextStyles.normalType6,
                     ),
                   ),
                   Spacer(),
@@ -61,10 +59,10 @@ class DiagnoseScreen extends ConsumerWidget {
                     children: [
                       Text(
                         '${currentIndex + 1}',
-                        style: AppTextStyles.heading5,
+                        style: AppTextStyles.headingType5,
                       ),
                       Text(
-                        '/${symptomQuestions.length}',
+                        ' / ${symptomQuestions.length}',
                         style: AppTextStyles.normal6,
                       ),
                     ],
@@ -86,17 +84,17 @@ class DiagnoseScreen extends ConsumerWidget {
                 maxRange: symptomQuestions[currentIndex].maxRank.toDouble(),
               ),
             ),
-
+            SizedBox(height: 10,),
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20.0,
                   vertical: 10,
                 ),
-                child: Text('Slide up to desired input value'),
+                child: Text('Slide up to desired input value', style: AppTextStyles.normal14,),
               ),
             ),
-
+            SizedBox(height: 20,),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(
