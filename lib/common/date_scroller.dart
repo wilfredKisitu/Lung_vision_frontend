@@ -12,9 +12,9 @@ class DateScroller extends StatelessWidget {
     List<DateTime> dates = List.generate(7, (index) => today.subtract(Duration(days: 3 - index)));
     
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 20),
+      padding: EdgeInsets.symmetric(vertical: 0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: dates.map((date) {
           bool isToday = date.day == today.day && date.month == today.month && date.year == today.year;
           return Padding(

@@ -6,7 +6,7 @@ import 'package:lungv_app/modules/Main/navigation.dart';
 import 'package:lungv_app/modules/Splash/splash_screen.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: '/', // Set initial route
+  initialLocation: '/main', // Set initial route
   routes: [
     GoRoute(path: '/main', builder: (context, state) => BottomNavBar()),
     GoRoute(path: '/', builder: (context, state) => SplashScreen()),

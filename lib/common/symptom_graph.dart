@@ -31,7 +31,7 @@ class ForecastBar extends StatelessWidget {
           children: [
             // Dynamic gray background indicating max height
             Container(
-              width: 30, 
+              width: 35, 
               height: backgroundHeight, 
               decoration: BoxDecoration(
                 color: AppColor.primaryGray, 
@@ -41,7 +41,7 @@ class ForecastBar extends StatelessWidget {
 
             // The actual colored bar scaled to the current scale
             Container(
-              width: 30,
+              width: 35,
               height: barHeight.clamp(10, 200), // Min height 10, max height 200
               decoration: BoxDecoration(
                 color: AppColor.primaryGreen, // Bar color

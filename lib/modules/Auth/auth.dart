@@ -44,15 +44,17 @@ class _LoginScreenState extends State<LoginScreen>
       backgroundColor: AppColor.primaryWhite,
       appBar: AppBar(
         backgroundColor: AppColor.primaryWhite,
-        title: Image.asset('assets/images/logo_small.png', height: 40),
-        centerTitle: true,
+        // title: Image.asset('assets/images/small_logo_without_label.png', height: 40),
+        // centerTitle: true,
+        leading: IconButton(onPressed: (){}, icon: Icon(Icons.chevron_left, size: 24,)),
       ),
       body: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 15,),
+            // SizedBox(height: 15,),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 30, 20, 5),
               child: Text(
@@ -68,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen>
                 style: AppTextStyles.heading2,
               ),
             ),
-            SizedBox(height: 15,),
+            SizedBox(height: 5,),
             Column(
               children: [
                 TabBar(
@@ -121,7 +123,7 @@ class LoginTab extends ConsumerWidget {
         // Email
         Center(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(18.0, 30, 18, 0),
+            padding: const EdgeInsets.fromLTRB(18.0, 20, 18, 0),
             child: CustomTextField(
               controller: emailController,
               hintText: 'Enter your email',
@@ -156,7 +158,7 @@ class LoginTab extends ConsumerWidget {
           padding: const EdgeInsets.all(18.0),
           child: Center(
             child: CustomButton(
-              text: 'Login',
+              text: 'LOGIN',
               onPressed: () {
                 final email = emailController.text;
                 final password = passwordController.text;
@@ -166,7 +168,7 @@ class LoginTab extends ConsumerWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(30.0, 10, 30, 30),
+          padding: const EdgeInsets.fromLTRB(30.0, 20, 30, 30),
           child: Text(
             'By signing up you agree to our Terms of Service and Privacy Policy',
             style: AppTextStyles.normal16,

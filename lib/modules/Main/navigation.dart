@@ -31,25 +31,31 @@ class BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Image.asset('assets/images/logo_small.png'),
-      //   centerTitle: true,
-      //   backgroundColor: AppColor.primaryWhite,
-      // ),
+      appBar: AppBar(
+        // title: Image.asset('assets/images/logo_small.png'),
+        // centerTitle: true,
+        leading: IconButton(onPressed: () {}, icon: Icon(Icons.chevron_left, size: 28,)),
+        backgroundColor: AppColor.primaryWhite,
+      ),
       backgroundColor: AppColor.primaryWhite,
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: AppColor.primaryBlack,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: AppColor.blackWithOpacity70,
+        backgroundColor: AppColor.primaryWhite,
+        type: BottomNavigationBarType.fixed,
+        selectedLabelStyle: TextStyle(fontSize: 12), // Adjust label size for selected tab
+        unselectedLabelStyle: TextStyle(fontSize: 10),
+        elevation: 0,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart),
             label: "Diagnose",
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.camera), label: "Use CT"),
+          BottomNavigationBarItem(icon: Icon(Icons.camera), label: "Use CT", ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),

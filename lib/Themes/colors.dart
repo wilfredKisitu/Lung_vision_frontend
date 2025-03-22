@@ -11,4 +11,5 @@ class AppColor {
   static final Color primaryGray = Color(0xFFF8F8F8);
   static final Color primaryGreen = Color(0xFF51BB92);
   static final Color symptomColor = Color(0xFFF8F8F8);
+  static final Color uploadGrey = Color(0xFFD8D8D8);
 }

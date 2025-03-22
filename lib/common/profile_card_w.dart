@@ -26,9 +26,12 @@ class ProfileCardW extends StatelessWidget {
       child: ListTile(
         leading: _buildLeadingIcon(), // Dynamically build the leading widget
         title: Text(title, style: AppTextStyles.normal3),
-        subtitle: Text(
-          subtitle,
-          style: AppTextStyles.normal2,
+        subtitle: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5.0),
+          child: Text(
+            subtitle,
+            style: AppTextStyles.normal3,
+          ),
         ),
         trailing: IconButton(
           icon: Icon(trailingIcon, size: 24),

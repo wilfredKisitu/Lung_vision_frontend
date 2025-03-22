@@ -87,7 +87,7 @@ class DetailsScreen extends ConsumerWidget {
                   // **Top Symptoms Section**
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    child: Text('Top 5 Symptoms', style: AppTextStyles.headingType1),
+                    child: Text('Top 5 Symptoms', style: AppTextStyles.headingTypeVar1),
                   ),
                   // **Graph Plots**
                   SizedBox(height: 40,),
@@ -98,7 +98,7 @@ class DetailsScreen extends ConsumerWidget {
                       children: topSymptoms.map((symptom) {
                         return ForecastBar(
                           symptom: symptom['name'],
-                          scale: symptom['rank'],
+                          scale: (symptom['rank'] as num).toDouble(),
                         );
                       }).toList(),
                     ),
@@ -107,7 +107,7 @@ class DetailsScreen extends ConsumerWidget {
                   SizedBox(height: 40,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    child: Text('Other Symptoms', style: AppTextStyles.headingType1),
+                    child: Text('Other Symptoms', style: AppTextStyles.headingTypeVar1),
                   ),
                   // **Symptom Cards**
                   SizedBox(height: 10,),

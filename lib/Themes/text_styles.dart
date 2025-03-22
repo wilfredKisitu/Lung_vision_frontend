@@ -3,24 +3,30 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lungv_app/Themes/colors.dart';
 
 class AppTextStyles {
-  static final TextStyle heading1 = GoogleFonts.robotoCondensed(
-    fontSize: 27,
+  static final TextStyle heading1 = GoogleFonts.roboto(
+    fontSize: 24,
     fontWeight: FontWeight.bold,
   );
-  static final TextStyle heading2 = GoogleFonts.robotoCondensed(
-    fontSize: 15,
+  static final TextStyle heading2 = GoogleFonts.roboto(
+    fontSize: 14,
+    fontWeight: FontWeight.normal
   );
-  static final TextStyle normal14 = GoogleFonts.robotoCondensed(
-    fontSize: 17,
+  static final TextStyle normal14 = GoogleFonts.roboto(
+    fontSize: 14,
     color: AppColor.primaryBlack
   );
-  static final TextStyle normal16 = GoogleFonts.robotoCondensed(
-    fontSize: 15,
-    color: AppColor.primaryBlack
+  static final TextStyle normalType14 = GoogleFonts.roboto(
+    fontSize: 14,
+    fontWeight: FontWeight.normal
   );
-  static final TextStyle normal15 = GoogleFonts.robotoCondensed(
-    fontSize: 17,
-    color: AppColor.primaryWhite
+  static final TextStyle normal16 = GoogleFonts.roboto(
+    fontSize: 13,
+    color: AppColor.blackWithOpacity70,
+  );
+  static final TextStyle normal15 = GoogleFonts.roboto(
+    fontSize: 14,
+    color: AppColor.primaryWhite,
+    fontWeight: FontWeight.bold
   );
   static final TextStyle dateStyleWhite = GoogleFonts.robotoCondensed(
     fontSize: 14,
@@ -30,9 +36,13 @@ class AppTextStyles {
     fontSize: 14,
     color: AppColor.primaryBlack
   );
-  static final TextStyle normalType16 = GoogleFonts.robotoCondensed(
-    fontSize: 17,
+  static final TextStyle normalType16 = GoogleFonts.roboto(
+    fontSize: 16,
     color: AppColor.primaryBlack
+  );
+  static final TextStyle normalTypeVar16 = GoogleFonts.roboto(
+    fontSize: 40,
+    color: AppColor.primaryOrange
   );
   static final TextStyle normalType15 = GoogleFonts.robotoCondensed(
     fontSize: 17,
@@ -44,13 +54,18 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
     color: AppColor.primaryOrange
   );
-  static final TextStyle headingType3 = GoogleFonts.robotoCondensed(
-    fontSize: 65,
+  static final TextStyle headingType3 = GoogleFonts.roboto(
+    fontSize: 60,
     fontWeight: FontWeight.bold,
     color: AppColor.primaryOrange
   );
-  static final TextStyle headingType2 = GoogleFonts.robotoCondensed(
-    fontSize: 40,
+  static final TextStyle headingType2 = GoogleFonts.roboto(
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
+    color: AppColor.primaryOrange
+  );
+  static final TextStyle headingTypeVar2 = GoogleFonts.roboto(
+    fontSize: 70,
     fontWeight: FontWeight.bold,
     color: AppColor.primaryOrange
   );
@@ -67,26 +82,30 @@ class AppTextStyles {
     fontSize: 14,
     fontWeight: FontWeight.normal,
   );
-  static final TextStyle normalType2 = GoogleFonts.robotoCondensed(
-    fontSize: 20,
-    fontWeight: FontWeight.w500,
-    color: AppColor.primaryBlack
+  static final TextStyle normalType2 = GoogleFonts.roboto(
+    fontSize: 17,
+    fontWeight: FontWeight.normal,
   );
   static final TextStyle normalType3 = GoogleFonts.robotoCondensed(
     fontSize: 20,
     fontWeight: FontWeight.w500,
     color: AppColor.primaryBlack
   );
-  static final TextStyle headingType1 = GoogleFonts.robotoCondensed(
-    fontSize: 24,
-    fontWeight: FontWeight.bold,
+  static final TextStyle headingType1 = GoogleFonts.roboto(
+    fontSize: 22,
+    fontWeight: FontWeight.w500,
+    color: AppColor.primaryBlack
+  );
+  static final TextStyle headingTypeVar1 = GoogleFonts.roboto(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
     color: AppColor.primaryBlack
   );
 
-  static final TextStyle normal3 = GoogleFonts.robotoCondensed(
-    fontSize: 15,
-    fontWeight: FontWeight.bold,
-    color: AppColor.blackWithOpacity70,
+  static final TextStyle normal3 = GoogleFonts.roboto(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: AppColor.primaryBlack,
   );
   static final TextStyle normal4 = GoogleFonts.robotoCondensed(
     fontSize: 18,
@@ -123,17 +142,16 @@ class AppTextStyles {
     fontSize: 17,
     fontWeight: FontWeight.normal,
   );
-  static final TextStyle normalType6 = GoogleFonts.robotoCondensed(
-    fontSize: 18,
+  static final TextStyle normalType6 = GoogleFonts.roboto(
+    fontSize: 14,
     fontWeight: FontWeight.normal,
   );
   static final TextStyle normal7 = GoogleFonts.robotoCondensed(
     fontSize: 18,
     fontWeight: FontWeight.w600,
   );
-  static final TextStyle normal9 = GoogleFonts.robotoCondensed(
+  static final TextStyle normal9 = GoogleFonts.roboto(
     fontSize: 13,
-    fontWeight: FontWeight.w500,
     color: AppColor.primaryBlack,
   );
 
@@ -148,17 +166,17 @@ class AppTextStyles {
     fontWeight: FontWeight.normal,
     color: AppColor.primaryWhite,
   );
-  static final TextStyle cardStyle = GoogleFonts.smoochSans(
-    fontSize: 32,
+  static final TextStyle cardStyle = GoogleFonts.roboto(
+    fontSize: 24,
     fontWeight: FontWeight.bold,
     color: AppColor.primaryWhite,
   );
-  static final TextStyle cardStyle2 = GoogleFonts.smoochSans(
-    fontSize: 18,
+  static final TextStyle cardStyle2 = GoogleFonts.roboto(
+    fontSize: 14,
     fontWeight: FontWeight.bold,
     color: AppColor.primaryWhite,
   );
-  static final TextStyle cardStyle3 = GoogleFonts.smoochSans(
+  static final TextStyle cardStyle3 = GoogleFonts.roboto(
     fontSize: 40,
     fontWeight: FontWeight.bold,
     color: AppColor.primaryWhite,

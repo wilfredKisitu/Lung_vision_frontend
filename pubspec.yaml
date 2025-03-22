@@ -42,6 +42,7 @@ dependencies:
   flutter_easyloading: ^3.0.5 
   shared_preferences: ^2.0.15
   intl: 0.19.0
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +83,9 @@ flutter:
     - assets/images/notification_low.png
     - assets/images/notification_high.png
     - assets/images/notification_meduim.png
+    - assets/images/upload_image.png
+    - assets/images/logo_without_label.png
+    - assets/images/small_logo_without_label.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

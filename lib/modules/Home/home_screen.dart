@@ -26,6 +26,7 @@ class HomeScreen extends ConsumerWidget {
       child: SafeArea(
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Row(
                 children: [
@@ -48,9 +49,9 @@ class HomeScreen extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 20,),
+                              // SizedBox(height: 20,),
                               if (latestDiagnosis != null) ...[
-                                CountWithUnit(
+                                CountWithUnitHeader(
                                   count: diagnosis.length,
                                   unit: 'Tests',
                                 ),
@@ -89,12 +90,11 @@ class HomeScreen extends ConsumerWidget {
                 ],
               ),
               // Diagnosis summary
-              SizedBox(height: 20,),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: Text('Diagnosis Summary', style: AppTextStyles.headingType1),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Text('Statistics', style: AppTextStyles.headingType1),
               ),
-              SizedBox(height: 15,),
+              
               // statistic cards
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -145,12 +145,13 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ),
               // Latest Diagnosis
-              SizedBox(height: 20,),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: Text('Latest Diagnosis', style: AppTextStyles.headingType1),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                child: Text('Diagnosis', style: AppTextStyles.headingType1),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -164,23 +165,17 @@ class HomeScreen extends ConsumerWidget {
                     ),
                   ),
                   Spacer(),
-                  // image
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 5,
-                      vertical: 20,
-                    ),
-                    child: Image.asset('assets/images/recent.png', height: 100,),
-                  ),
+                  Image.asset('assets/images/recent.png', height: 70,),
                 ],
               ),
               // Top 5 symptoms
+              SizedBox(height: 20,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: Text('Top 5 symptoms', style: AppTextStyles.normalType2),
+                child: Text('Top Symptoms', style: AppTextStyles.normalType2),
               ),
               // Graph plots
-              SizedBox(height: 30,),
+              SizedBox(height: 40,),
               Center(
                 child: diagnosisState.when(data: (diagnosis) {
                   if(diagnosis.isEmpty){
@@ -194,7 +189,7 @@ class HomeScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: topSymptoms.map((symptom){
-                      return ForecastBar(symptom: symptom['name'], scale: symptom['rank']);
+                      return ForecastBar(symptom: symptom['name'], scale: (symptom['rank'] as num).toDouble());
                     }).toList(),
                   );
       
@@ -267,7 +262,7 @@ Widget _risk(String risk, String unit){
       children: [
         Text(risk.toUpperCase(), style: AppTextStyles.headingType2),
         Padding(
-          padding: const EdgeInsets.all(5.0),
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
           child: Text(unit, style: AppTextStyles.normal14),
         ),
       ],

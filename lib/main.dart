@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:device_preview/device_preview.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lungv_app/modules/routes/routes.dart';
 
 void main() {
   configLoading();
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.white, // Set the bottom bar color
+      systemNavigationBarIconBrightness: Brightness.dark, // Adjust icons
+    ),
+  );
   runApp(
     ProviderScope(
-      child: DevicePreview(
-        enabled: true, // Set to false to disable
-        builder: (context) => const MyApp(),
-      ),
+      child: const MyApp(),
     ),
   );
 }
@@ -22,18 +26,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      builder: (context, child) {
-        return EasyLoading.init()(
-          context,
-          DevicePreview.appBuilder(context, child),
-        );
-      },
-      locale: DevicePreview.locale(context),
+      builder: EasyLoading.init(),
       debugShowCheckedModeBanner: false,
       routerConfig: router,
     );
   }
 }
+
 
 void configLoading() {
   EasyLoading.instance

@@ -27,9 +27,11 @@ class DiagnoseScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 4,),
-            DateScroller(),
-            SizedBox(height: 10,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: DateScroller(),
+            ),
+            SizedBox(height: 30,),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
               child: Text(
@@ -39,12 +41,13 @@ class DiagnoseScreen extends ConsumerWidget {
               ),
             ),
             
-            SizedBox(height: 10,),
             // Symptoms
+            SizedBox(height: 30,),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.symmetric( horizontal: 20),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
                     height: 80,
@@ -72,7 +75,7 @@ class DiagnoseScreen extends ConsumerWidget {
             ),
 
             Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 40, 20, 20),
+              padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 20),
               child: Center(
                 child: ArcWithCenteredCount(
                   unit: '/${symptomQuestions[currentIndex].maxRank}',
@@ -94,7 +97,7 @@ class DiagnoseScreen extends ConsumerWidget {
                 child: Text('Slide up to desired input value', style: AppTextStyles.normal14,),
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(

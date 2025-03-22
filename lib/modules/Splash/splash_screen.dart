@@ -18,7 +18,7 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigateToLogin() {
-    Future.delayed(const Duration(seconds: 10), () {
+    Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
         context.go('/login');
       }
@@ -29,7 +29,7 @@ class SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.primaryWhite,
-      body: Center(child: Image.asset('assets/images/logo.png')),
+      body: Center(child: Image.asset('assets/images/logo_without_label.png')),
     );
   }
 }
