@@ -25,19 +25,25 @@ class SmallButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        minimumSize: const Size(40, 40), // Ensures a minimum size
       ),
-      child:
-          content is String
-              ? Text(
-                content, // Display text
-                style: AppTextStyles.btn1,
-              )
-              : Icon(
-                content as IconData, // Display icon
-                color: AppColor.primaryWhite,
-                size: 20,
-              ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min, // Wraps content dynamically
+        children: [
+          if (content is String)
+            Text(
+              content, // Display text
+              style: AppTextStyles.btn1,
+            )
+          else if (content is IconData)
+            Icon(
+              content as IconData, // Display icon
+              color: AppColor.primaryWhite,
+              size: 20,
+            ),
+        ],
+      ),
     );
   }
 }

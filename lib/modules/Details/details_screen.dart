@@ -35,10 +35,14 @@ class DetailsScreen extends ConsumerWidget {
           child: diagnosisState.when(
             data: (diagnoses) {
               // **Find the matching Diagnosis using `diagnosisId`**
-              final diagnosis = diagnoses.firstWhere((d) => d.id == int.tryParse(diagnosisId));
+              final diagnosis = diagnoses.firstWhere(
+                (d) => d.id == int.tryParse(diagnosisId),
+              );
 
               // **Fetch symptoms for the selected Diagnosis**
-              final symptomsData = ref.watch(symptomsForDiagnosisProvider(diagnosis));
+              final symptomsData = ref.watch(
+                symptomsForDiagnosisProvider(diagnosis),
+              );
               final topSymptoms = symptomsData['topSymptoms'] ?? [];
               final remainingSymptoms = symptomsData['remainingSymptoms'] ?? [];
 
@@ -46,7 +50,6 @@ class DetailsScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // **Risk Section**
-                  
                   Row(
                     children: [
                       Padding(
@@ -56,14 +59,20 @@ class DetailsScreen extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               CountWithUnit(
-                                count: getRiskText(int.tryParse(diagnosis.prediction) ?? -1),
+                                count: getRiskText(
+                                  int.tryParse(diagnosis.prediction) ?? -1,
+                                ),
                                 unit: 'Risk',
                               ),
-                              Padding(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                              child: Text(
-                                _formatDate(diagnosis.createdAt.toString()),
-                                style: AppTextStyles.normal14,
-                              ), 
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 5,
+                                ),
+                                child: Text(
+                                  _formatDate(diagnosis.createdAt.toString()),
+                                  style: AppTextStyles.normal14,
+                                ),
                               ),
                               // Padding(
                               //   padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
@@ -86,44 +95,61 @@ class DetailsScreen extends ConsumerWidget {
                   ),
                   // **Top Symptoms Section**
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    child: Text('Top 5 Symptoms', style: AppTextStyles.headingTypeVar1),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 15,
+                    ),
+                    child: Text(
+                      'Top 5 Symptoms',
+                      style: AppTextStyles.headingTypeVar1,
+                    ),
                   ),
                   // **Graph Plots**
-                  SizedBox(height: 40,),
+                  SizedBox(height: 40),
                   Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.end,
-                      children: topSymptoms.map((symptom) {
-                        return ForecastBar(
-                          symptom: symptom['name'],
-                          scale: (symptom['rank'] as num).toDouble(),
-                        );
-                      }).toList(),
+                      children:
+                          topSymptoms.map((symptom) {
+                            return ForecastBar(
+                              symptom: symptom['name'],
+                              scale: (symptom['rank'] as num).toDouble(),
+                            );
+                          }).toList(),
                     ),
                   ),
                   // **Other Symptoms Section**
-                  SizedBox(height: 40,),
+                  SizedBox(height: 40),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    child: Text('Other Symptoms', style: AppTextStyles.headingTypeVar1),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 15,
+                    ),
+                    child: Text(
+                      'Other Symptoms',
+                      style: AppTextStyles.headingTypeVar1,
+                    ),
                   ),
                   // **Symptom Cards**
-                  SizedBox(height: 10,),
+                  SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
-                      children: remainingSymptoms.map((symptom) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 8),
-                          child: NotificationCard(
-                            imagePath: getIcon(symptom['rank']), 
-                            riskText: symptom['name'],
-                            predictedRisk: rankTranslate(symptom['rank']),
-                            ),
-                        );
-                      }).toList(),
+                      children:
+                          remainingSymptoms.map((symptom) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 3.0,
+                                horizontal: 8,
+                              ),
+                              child: NotificationCard(
+                                imagePath: getIcon(symptom['rank']),
+                                riskText: symptom['name'],
+                                predictedRisk: rankTranslate(symptom['rank']),
+                              ),
+                            );
+                          }).toList(),
                     ),
                   ),
                 ],
@@ -152,9 +178,7 @@ String getRiskText(int prediction) {
   }
 }
 
-
-
-// Translate ranks 
+// Translate ranks
 String rankTranslate(int rank) {
   if (rank <= 3) {
     return 'Low';

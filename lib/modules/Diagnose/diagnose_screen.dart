@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lungv_app/Themes/text_styles.dart';
 import 'package:lungv_app/common/button.dart';
 import 'package:lungv_app/common/circular_indicator.dart';
-import 'package:lungv_app/common/date_scroller.dart';
 import 'package:lungv_app/common/slider/slider.dart';
 import 'package:lungv_app/common/slider/slider_provider.dart';
 import 'package:lungv_app/modules/Diagnose/paramter_provider.dart';
@@ -28,11 +27,6 @@ class DiagnoseScreen extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: DateScroller(),
-            ),
-            SizedBox(height: 30,),
-            Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
               child: Text(
                 'New Diagnosis',
@@ -40,11 +34,11 @@ class DiagnoseScreen extends ConsumerWidget {
                 style: AppTextStyles.headingType1,
               ),
             ),
-            
+
             // Symptoms
-            SizedBox(height: 30,),
+            SizedBox(height: 15),
             Padding(
-              padding: const EdgeInsets.symmetric( horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -75,7 +69,7 @@ class DiagnoseScreen extends ConsumerWidget {
             ),
 
             Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 20),
+              padding: const EdgeInsets.fromLTRB(20.0, 40, 20, 20),
               child: Center(
                 child: ArcWithCenteredCount(
                   unit: '/${symptomQuestions[currentIndex].maxRank}',
@@ -87,19 +81,22 @@ class DiagnoseScreen extends ConsumerWidget {
                 maxRange: symptomQuestions[currentIndex].maxRank.toDouble(),
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: 15),
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20.0,
                   vertical: 10,
                 ),
-                child: Text('Slide up to desired input value', style: AppTextStyles.normal14,),
+                child: Text(
+                  'Slide up to desired input value',
+                  style: AppTextStyles.normal14,
+                ),
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Row(
                 children: [
                   SmallButton(
@@ -110,8 +107,10 @@ class DiagnoseScreen extends ConsumerWidget {
                       } else {
                         // **Update Symptom Data Before Navigating**
                         symptomNotifier.updateSymptom(
-                            symptomQuestions[currentIndex].symptom, sliderValue);
-                        
+                          symptomQuestions[currentIndex].symptom,
+                          sliderValue,
+                        );
+
                         // Move to Previous
                         ref.read(symptomIndexProvider.notifier).state--;
 
@@ -121,43 +120,62 @@ class DiagnoseScreen extends ConsumerWidget {
                     },
                   ),
                   Spacer(),
-                  SmallButton(
-                    content: (isLast) ? 'Forecast' : Icons.chevron_right,
-                    onPressed: () {
-                      // **Update Symptom Value**
-                      symptomNotifier.updateSymptom(
-                          symptomQuestions[currentIndex].symptom, sliderValue);
 
-                      if (isLast) {
-                        // **Show "Submitting" Snackbar**
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Submitting Diagnosis...")),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20.0,
+                      horizontal: 20,
+                    ),
+                    child: SmallButton(
+                      content: (isLast) ? 'Forecast' : Icons.chevron_right,
+                      onPressed: () {
+                        // **Update Symptom Value**
+                        symptomNotifier.updateSymptom(
+                          symptomQuestions[currentIndex].symptom,
+                          sliderValue,
                         );
 
-                        // **Call async function separately**
-                        Future(() async {
-                          try {
-                            await symptomNotifier.submitDiagnosis();
+                        if (isLast) {
+                          // **Show "Submitting" Snackbar**
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Submitting Diagnosis..."),
+                            ),
+                          );
 
-                            // **Show "Success" Snackbar**
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Diagnosis Submitted Successfully!")),
-                            );
-                          } catch (e) {
-                            // **Show Error Snackbar**
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Error Submitting Diagnosis: $e")),
-                            );
-                          }
-                        });
-                      } else {
-                        // **Move to Next Question**
-                        ref.read(symptomIndexProvider.notifier).state++;
+                          // **Call async function separately**
+                          Future(() async {
+                            try {
+                              await symptomNotifier.submitDiagnosis();
 
-                        // **Reset Slider**
-                        ref.read(sliderProvider.notifier).state = 0;
-                      }
-                    },
+                              // **Show "Success" Snackbar**
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "Diagnosis Submitted Successfully!",
+                                  ),
+                                ),
+                              );
+                            } catch (e) {
+                              // **Show Error Snackbar**
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "Error Submitting Diagnosis: $e",
+                                  ),
+                                ),
+                              );
+                            }
+                          });
+                        } else {
+                          // **Move to Next Question**
+                          ref.read(symptomIndexProvider.notifier).state++;
+
+                          // **Reset Slider**
+                          ref.read(sliderProvider.notifier).state = 0;
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),

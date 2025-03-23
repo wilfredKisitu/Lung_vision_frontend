@@ -4,7 +4,7 @@ import 'package:lungv_app/Themes/text_styles.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color color;
   final double borderRadius;
 
@@ -31,10 +31,7 @@ class CustomButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
-        child: Text(
-          text,
-          style: AppTextStyles.normal15,
-        ),
+        child: Text(text, style: AppTextStyles.normal15),
       ),
     );
   }

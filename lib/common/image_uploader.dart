@@ -4,7 +4,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lungv_app/Themes/colors.dart';
 
 class ImageUploader extends StatefulWidget {
-  const ImageUploader({super.key});
+  final Function(File) onImagePicked; // Callback to pass the selected image
+
+  const ImageUploader({super.key, required this.onImagePicked});
 
   @override
   ImageUploaderState createState() => ImageUploaderState();
@@ -21,6 +23,7 @@ class ImageUploaderState extends State<ImageUploader> {
       setState(() {
         _selectedImage = File(image.path);
       });
+      widget.onImagePicked(_selectedImage!); // Notify the parent widget
     }
   }
 
@@ -32,28 +35,30 @@ class ImageUploaderState extends State<ImageUploader> {
         _selectedImage != null
             ? Center(
               child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.file(
-                    _selectedImage!,
-                    width: 356,
-                    height: 393,
-                    fit: BoxFit.cover,
-                  ),
+                borderRadius: BorderRadius.circular(12),
+                child: Image.file(
+                  _selectedImage!,
+                  width: 350,
+                  height: 390,
+                  fit: BoxFit.cover,
                 ),
+              ),
             )
             : Center(
               child: Container(
-                width: 356,
-                height: 393,
+                width: 350,
+                height: 390,
                 decoration: BoxDecoration(
                   color: AppColor.primaryGray,
-                  borderRadius: BorderRadius.circular(10)
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: GestureDetector(
                   onTap: () {
                     _pickImage();
                   },
-                  child: Image.asset('assets/images/upload_image.png'))),
+                  child: Image.asset('assets/images/upload_image.png'),
+                ),
+              ),
             ),
       ],
     );

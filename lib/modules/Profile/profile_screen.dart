@@ -18,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
           children: [
             Center(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                 child: UserProfile(imagePath: ImagePath.profileImage),
               ),
             ),

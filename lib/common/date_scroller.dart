@@ -9,37 +9,46 @@ class DateScroller extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime today = DateTime.now();
-    List<DateTime> dates = List.generate(7, (index) => today.subtract(Duration(days: 3 - index)));
-    
+    List<DateTime> dates = List.generate(
+      7,
+      (index) => today.subtract(Duration(days: 3 - index)),
+    );
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: dates.map((date) {
-          bool isToday = date.day == today.day && date.month == today.month && date.year == today.year;
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: isToday
-                ? Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    decoration: BoxDecoration(
-                      color: AppColor.primaryOrange,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Text(
-                      'Today ${DateFormat('dd, MMMM').format(date)}',
-                      style: AppTextStyles.dateStyleWhite,
-                    ),
-                  )
-                : Text(
-                    DateFormat('dd').format(date),
-                    style: AppTextStyles.dateStyleBlack,
-                  ),
-          );
-        }).toList(),
+        children:
+            dates.map((date) {
+              bool isToday =
+                  date.day == today.day &&
+                  date.month == today.month &&
+                  date.year == today.year;
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child:
+                    isToday
+                        ? Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 12,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColor.primaryBlack,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Text(
+                            'Today ${DateFormat('dd, MMMM').format(date)}',
+                            style: AppTextStyles.dateStyleWhite,
+                          ),
+                        )
+                        : Text(
+                          DateFormat('dd').format(date),
+                          style: AppTextStyles.dateStyleBlack,
+                        ),
+              );
+            }).toList(),
       ),
     );
   }
 }
-
-
