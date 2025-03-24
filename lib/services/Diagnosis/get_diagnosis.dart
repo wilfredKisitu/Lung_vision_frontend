@@ -1,3 +1,4 @@
+import 'package:lungv_app/models/Diagnosis/diagnosis_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -19,17 +20,13 @@ class ApiService {
   }
 
   // **POST: Submit Diagnosis**
-  static Future<void> submitDiagnosis(Map<String, int> symptomData) async {
+  static Future<Diagnosis> submitDiagnosis(Map<String, int> symptomData) async {
     try {
       final userData = await getUserData();
       final int userId = userData["userId"];
       final String token = userData["token"];
 
-      final requestBody = {
-        ...symptomData,
-        "userId": userId,
-      };
-      print(requestBody);
+      final requestBody = {...symptomData, "userId": userId};
       final url = Uri.parse("$baseUrl/diagnose");
 
       final response = await http.post(
@@ -43,12 +40,11 @@ class ApiService {
 
       if (response.statusCode == 201) {
         final data = jsonDecode(response.body);
-        print("Diagnosis Submitted Successfully: $data");
+        return Diagnosis.fromJson(data);
       } else {
         throw Exception("Failed to submit diagnosis: ${response.body}");
       }
     } catch (e) {
-      print("Error submitting diagnosis: $e");
       throw Exception("Error submitting diagnosis: $e");
     }
   }

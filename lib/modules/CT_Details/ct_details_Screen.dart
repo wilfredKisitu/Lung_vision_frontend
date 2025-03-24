@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lungv_app/Themes/colors.dart';
 import 'package:lungv_app/Themes/text_styles.dart';
-import 'package:lungv_app/common/Constants/image_paths.dart';
 import 'package:lungv_app/common/count_with_unit.dart';
 import 'package:lungv_app/common/image_viewer.dart';
 

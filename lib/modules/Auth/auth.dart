@@ -46,7 +46,10 @@ class _LoginScreenState extends State<LoginScreen>
         backgroundColor: AppColor.primaryWhite,
         // title: Image.asset('assets/images/small_logo_without_label.png', height: 40),
         // centerTitle: true,
-        leading: IconButton(onPressed: (){}, icon: Icon(Icons.chevron_left, size: 24,)),
+        leading: IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.chevron_left, size: 24),
+        ),
       ),
       body: SingleChildScrollView(
         physics: ClampingScrollPhysics(),
@@ -62,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen>
                 style: AppTextStyles.heading1,
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 5, 30, 20),
               child: Text(
@@ -70,12 +73,12 @@ class _LoginScreenState extends State<LoginScreen>
                 style: AppTextStyles.heading2,
               ),
             ),
-            SizedBox(height: 5,),
+            SizedBox(height: 5),
             Column(
               children: [
                 TabBar(
                   controller: _tabController,
-                  tabs: const [Tab(text: "Login",), Tab(text: "Signup")],
+                  tabs: const [Tab(text: "Login"), Tab(text: "Signup")],
                 ),
                 SizedBox(
                   height: 800, //
@@ -119,7 +122,7 @@ class LoginTab extends ConsumerWidget {
     });
     return Column(
       children: [
-        SizedBox(height: 15,),
+        SizedBox(height: 15),
         // Email
         Center(
           child: Padding(
@@ -132,7 +135,7 @@ class LoginTab extends ConsumerWidget {
             ),
           ),
         ),
-        SizedBox(height: 15,),
+        SizedBox(height: 15),
         // Password
         Center(
           child: Padding(
@@ -145,12 +148,18 @@ class LoginTab extends ConsumerWidget {
             ),
           ),
         ),
-        
+
         Padding(
           padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [Text('Forgot Password?', textAlign: TextAlign.left, style: AppTextStyles.normal14,)],
+            children: [
+              Text(
+                'Forgot Password?',
+                textAlign: TextAlign.left,
+                style: AppTextStyles.normal14,
+              ),
+            ],
           ),
         ),
 
@@ -219,33 +228,33 @@ class SignupTab extends ConsumerWidget {
 
     return Column(
       children: [
-        SizedBox(height: 15,),
+        SizedBox(height: 15),
         _buildTextField(nameController, 'Enter your name', Icons.person),
-        SizedBox(height: 10,),
+        SizedBox(height: 10),
         _buildTextField(emailController, 'Enter your email', Icons.email),
-        SizedBox(height: 10,),
+        SizedBox(height: 10),
         _buildTextField(
           yearOfBirthController,
           'Year of Birth YYYY',
           Icons.calendar_month,
         ),
-        SizedBox(height: 10,),
+        SizedBox(height: 10),
         _buildTextField(genderController, 'Gender M / F', Icons.male),
-        SizedBox(height: 10,),
+        SizedBox(height: 10),
         _buildTextField(
           passwordController,
           'Enter your password',
           Icons.lock,
           obscureText: true,
         ),
-        SizedBox(height: 10,),
+        SizedBox(height: 10),
         _buildTextField(
           confirmPasswordController,
           'Confirm password',
           Icons.lock,
           obscureText: true,
         ),
-        SizedBox(height: 30,),
+        SizedBox(height: 30),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
           child: Center(
@@ -271,7 +280,7 @@ class SignupTab extends ConsumerWidget {
             ),
           ),
         ),
-        SizedBox(height: 10,),
+        SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.fromLTRB(30.0, 15, 10, 30),
           child: Text(

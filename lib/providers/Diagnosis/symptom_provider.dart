@@ -1,12 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lungv_app/models/Diagnosis/diagnosis_model.dart';
 import 'package:lungv_app/models/Diagnosis/symptom_class.dart';
 import 'package:lungv_app/services/Diagnosis/get_diagnosis.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class SymptomNotifier extends StateNotifier<SymptomData> {
   SymptomNotifier()
-      : super(SymptomData(
+    : super(
+        SymptomData(
           symptoms: {
             "airPollution": 0,
             "alcoholUse": 0,
@@ -30,34 +31,24 @@ class SymptomNotifier extends StateNotifier<SymptomData> {
             "dryCough": 0,
             "snoring": 0,
           },
-        ));
+        ),
+      );
 
-  // **Update the value of a symptom from slider input while preserving order**
   void updateSymptom(String key, int value) {
     final updatedSymptoms = Map<String, int>.from(state.symptoms);
-    updatedSymptoms[key] = value; // Preserve original order
+    updatedSymptoms[key] = value;
 
-    state = SymptomData(
-      symptoms: updatedSymptoms,
-      userId: state.userId,
-    );
+    state = SymptomData(symptoms: updatedSymptoms, userId: state.userId);
   }
 
-  // **Retrieve the value of a specific symptom**
   int getSymptom(String key) {
     return state.symptoms[key] ?? 0;
   }
 
-  // **Reset all symptoms to 0 while maintaining order**
   void resetSymptoms() {
-    final resetSymptoms = {
-      for (var key in state.symptoms.keys) key: 0, // Preserve order
-    };
+    final resetSymptoms = {for (var key in state.symptoms.keys) key: 0};
 
-    state = SymptomData(
-      symptoms: resetSymptoms,
-      userId: state.userId,
-    );
+    state = SymptomData(symptoms: resetSymptoms, userId: state.userId);
   }
 
   // **Load `userId` from SharedPreferences before submission**
@@ -65,40 +56,30 @@ class SymptomNotifier extends StateNotifier<SymptomData> {
     final prefs = await SharedPreferences.getInstance();
     final userId = int.tryParse(prefs.getString('userId') ?? '0');
 
-    state = SymptomData(
-      symptoms: state.symptoms,
-      userId: userId,
-    );
+    state = SymptomData(symptoms: state.symptoms, userId: userId);
   }
 
-  // **Submit Diagnosis Data to API**
-  Future<void> submitDiagnosis() async {
+  Future<Diagnosis> submitDiagnosis() async {
     try {
-      // Ensure `userId` is loaded before submitting
       await loadUserId();
-
-      // Ensure `userId` is included while preserving order
       final Map<String, int> orderedSymptoms = {
-        ...state.symptoms, // Maintain order
-        "userId": state.userId ?? 0, // Append userId
+        ...state.symptoms,
+        "userId": state.userId ?? 0,
       };
 
-      // Send to API Service
-      await ApiService.submitDiagnosis(orderedSymptoms);
+      final diagnosis = await ApiService.submitDiagnosis(orderedSymptoms);
+      return diagnosis;
     } catch (e) {
-      print("Error submitting diagnosis: $e");
+      throw Exception("Error submitting diagnosis: $e");
     }
   }
 }
 
-// **Provider for Symptom State**
-final symptomProvider =
-    StateNotifierProvider<SymptomNotifier, SymptomData>((ref) {
+final symptomProvider = StateNotifierProvider<SymptomNotifier, SymptomData>((
+  ref,
+) {
   final notifier = SymptomNotifier();
   notifier.loadUserId();
-
-  // Prevent provider from being disposed
   ref.keepAlive();
-
   return notifier;
 });

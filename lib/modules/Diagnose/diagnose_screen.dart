@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lungv_app/Themes/text_styles.dart';
 import 'package:lungv_app/common/button.dart';
 import 'package:lungv_app/common/circular_indicator.dart';
@@ -34,9 +35,7 @@ class DiagnoseScreen extends ConsumerWidget {
                 style: AppTextStyles.headingType1,
               ),
             ),
-
-            // Symptoms
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
@@ -51,7 +50,7 @@ class DiagnoseScreen extends ConsumerWidget {
                       style: AppTextStyles.normalType6,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     children: [
                       Text(
@@ -67,7 +66,6 @@ class DiagnoseScreen extends ConsumerWidget {
                 ],
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.fromLTRB(20.0, 40, 20, 20),
               child: Center(
@@ -81,7 +79,7 @@ class DiagnoseScreen extends ConsumerWidget {
                 maxRange: symptomQuestions[currentIndex].maxRank.toDouble(),
               ),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -94,7 +92,7 @@ class DiagnoseScreen extends ConsumerWidget {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Row(
@@ -103,24 +101,18 @@ class DiagnoseScreen extends ConsumerWidget {
                     content: (isFirst) ? 'Cancel' : Icons.chevron_left,
                     onPressed: () {
                       if (isFirst) {
-                        // Navigator.of(context).pop();
+                        // Optionally pop or navigate back
                       } else {
-                        // **Update Symptom Data Before Navigating**
                         symptomNotifier.updateSymptom(
                           symptomQuestions[currentIndex].symptom,
                           sliderValue,
                         );
-
-                        // Move to Previous
                         ref.read(symptomIndexProvider.notifier).state--;
-
-                        // Reset Slider
                         ref.read(sliderProvider.notifier).state = 0;
                       }
                     },
                   ),
-                  Spacer(),
-
+                  const Spacer(),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 20.0,
@@ -129,49 +121,15 @@ class DiagnoseScreen extends ConsumerWidget {
                     child: SmallButton(
                       content: (isLast) ? 'Forecast' : Icons.chevron_right,
                       onPressed: () {
-                        // **Update Symptom Value**
                         symptomNotifier.updateSymptom(
                           symptomQuestions[currentIndex].symptom,
                           sliderValue,
                         );
 
                         if (isLast) {
-                          // **Show "Submitting" Snackbar**
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Submitting Diagnosis..."),
-                            ),
-                          );
-
-                          // **Call async function separately**
-                          Future(() async {
-                            try {
-                              await symptomNotifier.submitDiagnosis();
-
-                              // **Show "Success" Snackbar**
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    "Diagnosis Submitted Successfully!",
-                                  ),
-                                ),
-                              );
-                            } catch (e) {
-                              // **Show Error Snackbar**
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    "Error Submitting Diagnosis: $e",
-                                  ),
-                                ),
-                              );
-                            }
-                          });
+                          _handleDiagnosisSubmission(context, ref);
                         } else {
-                          // **Move to Next Question**
                           ref.read(symptomIndexProvider.notifier).state++;
-
-                          // **Reset Slider**
                           ref.read(sliderProvider.notifier).state = 0;
                         }
                       },
@@ -184,5 +142,34 @@ class DiagnoseScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  /// Handles the submission and redirection logic
+  Future<void> _handleDiagnosisSubmission(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    final symptomNotifier = ref.read(symptomProvider.notifier);
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text("Diagnosing...")));
+
+    try {
+      final diagnosis = await symptomNotifier.submitDiagnosis();
+
+      if (context.mounted) {
+        context.go('/detailsparsed/${diagnosis.id}', extra: diagnosis);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Diagnosis Submitted Successfully!")),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error Submitting Diagnosis: $e")),
+        );
+      }
+    }
   }
 }

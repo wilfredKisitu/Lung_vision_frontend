@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:lungv_app/models/Diagnosis/diagnosis_model.dart';
 import 'package:lungv_app/modules/Auth/auth.dart';
 import 'package:lungv_app/modules/CT_Details/ct_details_Screen.dart';
 import 'package:lungv_app/modules/Details/details_screen.dart';
@@ -6,7 +7,7 @@ import 'package:lungv_app/modules/Main/navigation.dart';
 import 'package:lungv_app/modules/Splash/splash_screen.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: '/main', //
+  initialLocation: '/', //
   routes: [
     GoRoute(path: '/main', builder: (context, state) => BottomNavBar()),
     GoRoute(path: '/', builder: (context, state) => SplashScreen()),
@@ -14,8 +15,23 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/details/:id',
       builder: (context, state) {
-        final String? id = state.pathParameters['id'];
-        return DetailsScreen(diagnosisId: id!);
+        // final String? id = state.pathParameters['id'];
+        final diagnosis = state.extra as Diagnosis?;
+        final id = state.pathParameters['id']!;
+        return DetailsScreen(diagnosisId: id, diagnosis: diagnosis);
+
+        // return DetailsScreen(diagnosisId: id!);
+      },
+    ),
+    GoRoute(
+      path: '/detailsparsed/:id',
+      builder: (context, state) {
+        // final String? id = state.pathParameters['id'];
+        final diagnosis = state.extra as Diagnosis;
+        final id = state.pathParameters['id']!;
+        return DetailsScreenParsed(diagnosisId: id, diagnosis: diagnosis);
+
+        // return DetailsScreen(diagnosisId: id!);
       },
     ),
     GoRoute(

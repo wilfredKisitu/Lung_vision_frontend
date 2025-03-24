@@ -1,6 +1,12 @@
 import 'dart:convert';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:lungv_app/models/login_user.dart';
+import 'package:lungv_app/providers/Auth/auth_provider.dart';
+import 'package:lungv_app/providers/Auth/user_provider.dart';
+import 'package:lungv_app/providers/CT_diagnosis/get_ct_diagnosis_service.dart';
+import 'package:lungv_app/providers/Diagnosis/diagnosis_provider.dart';
+import 'package:lungv_app/providers/Diagnosis/symptom_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
@@ -47,4 +53,25 @@ class AuthService {
     }
     return null;
   }
+}
+
+// logout user
+Future<void> logoutUser(WidgetRef ref) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('userId');
+  await prefs.remove('tokenAccess');
+  ref.invalidate(diagnosisProvider);
+  ref.invalidate(fetchOnHomeNavigationProvider);
+  ref.invalidate(totalPredictionsProvider);
+  ref.invalidate(latestPredictionProvider);
+  ref.invalidate(userProvider);
+  ref.invalidate(authProvider);
+  ref.invalidate(authServiceProvider);
+  ref.invalidate(userServiceProvider);
+  ref.invalidate(userProvider);
+  ref.invalidate(ctDiagnoseProvider);
+  ref.invalidate(notificationsProvider);
+  ref.invalidate(symptomsForDiagnosisProvider);
+  ref.invalidate(diagnosisServiceProvider);
+  ref.invalidate(symptomProvider);
 }

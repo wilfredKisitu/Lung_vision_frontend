@@ -108,4 +108,30 @@ class Diagnosis {
       'createdAt': createdAt.toIso8601String(),
     };
   }
+
+  Map<String, int> toSymptomMap() {
+    return {
+      'airPollution': airPollution,
+      'alcoholUse': alcoholUse,
+      'dustAllergy': dustAllergy,
+      'occupationHazard': occupationHazard,
+      'geneticRisk': geneticRisk,
+      'chronicLungDisease': chronicLungDisease,
+      'balancedDiet': balancedDiet,
+      'obesity': obesity,
+      'smoking': smoking,
+      'passiveSmoker': passiveSmoker,
+      'chestPain': chestPain,
+      'coughingOfBlood': coughingOfBlood,
+      'fatigue': fatigue,
+      'weightLoss': weightLoss,
+      'shortnessOfBreath': shortnessOfBreath,
+      'wheezing': wheezing,
+      'swallowingDifficult': swallowingDifficult,
+      'clubbingOfFingerNails': clubbingOfFingerNails,
+      'frequentCold': frequentCold,
+      'dryCough': dryCough,
+      'snoring': snoring,
+    };
+  }
 }

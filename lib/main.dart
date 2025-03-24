@@ -13,11 +13,7 @@ void main() {
       systemNavigationBarIconBrightness: Brightness.dark, // Adjust icons
     ),
   );
-  runApp(
-    ProviderScope(
-      child: const MyApp(),
-    ),
-  );
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -32,7 +28,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 
 void configLoading() {
   EasyLoading.instance

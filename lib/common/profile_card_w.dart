@@ -28,10 +28,7 @@ class ProfileCardW extends StatelessWidget {
         title: Text(title, style: AppTextStyles.normal3),
         subtitle: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),
-          child: Text(
-            subtitle,
-            style: AppTextStyles.normal3,
-          ),
+          child: Text(subtitle, style: AppTextStyles.normal3),
         ),
         trailing: IconButton(
           icon: Icon(trailingIcon, size: 24),
