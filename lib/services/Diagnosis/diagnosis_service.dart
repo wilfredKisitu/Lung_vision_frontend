@@ -20,7 +20,7 @@ class DiagnosisService {
         final List<dynamic> data = json.decode(response.body);
         return data.map((e) => Diagnosis.fromJson(e)).toList();
       } else {
-        throw Exception('Failed to fetch diagnosis data');
+        throw Exception('0');
       }
     } catch (e) {
       throw Exception('Error: $e');

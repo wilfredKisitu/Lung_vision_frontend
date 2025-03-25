@@ -4,8 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:lungv_app/Themes/text_styles.dart';
 import 'package:lungv_app/common/Constants/image_paths.dart';
 import 'package:lungv_app/common/profile_card_w.dart';
+import 'package:lungv_app/common/reusable_bottom_sheet.dart';
 import 'package:lungv_app/common/user_profile.dart';
-import 'package:lungv_app/providers/Auth/user_provider.dart';
+import 'package:lungv_app/providers/get_user_data.dart';
 import 'package:lungv_app/services/auth_service.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
@@ -19,21 +20,39 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    // Automatically fetch user data when the screen is loaded
-    Future.microtask(() => ref.refresh(userProvider));
+    Future.microtask(() => ref.refresh(getUserProvider));
+  }
+
+  void _openBottomSheet({
+    required String title,
+    required String fieldKey,
+    required String hintText,
+    TextInputType inputType = TextInputType.text,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder:
+          (_) => UpdateFieldBottomSheet(
+            title: title,
+            fieldKey: fieldKey,
+            hintText: hintText,
+            inputType: inputType,
+          ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final userAsync = ref.watch(userProvider);
+    final userAsync = ref.watch(getUserProvider);
 
     return SafeArea(
       child: SingleChildScrollView(
         child: userAsync.when(
           data: (user) {
-            if (user == null) {
-              return const Text('No user data available');
-            }
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,22 +79,63 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ProfileCardW(
                         prefixIcon: Icons.person,
                         title: 'Name',
-                        subtitle: user.name ?? 'N/A',
-                        onTap: () {},
+                        subtitle: user.name,
+                        onTap:
+                            () => _openBottomSheet(
+                              title: 'Name',
+                              fieldKey: 'name',
+                              hintText: 'Enter your name',
+                            ),
                         trailingIcon: Icons.edit,
                       ),
                       ProfileCardW(
                         prefixIcon: Icons.email,
                         title: 'Email',
                         subtitle: user.email,
-                        onTap: () {},
+                        onTap:
+                            () => _openBottomSheet(
+                              title: 'Email',
+                              fieldKey: 'email',
+                              hintText: 'Enter your email',
+                              inputType: TextInputType.emailAddress,
+                            ),
+                        trailingIcon: Icons.edit,
+                      ),
+                      ProfileCardW(
+                        prefixIcon: Icons.male,
+                        title: 'Gender',
+                        subtitle: user.gender,
+                        onTap:
+                            () => _openBottomSheet(
+                              title: 'Gender',
+                              fieldKey: 'gender',
+                              hintText: 'Enter gender (M/F)',
+                            ),
+                        trailingIcon: Icons.edit,
+                      ),
+                      ProfileCardW(
+                        prefixIcon: Icons.calendar_month,
+                        title: 'Year of Birth',
+                        subtitle: user.YOB,
+                        onTap:
+                            () => _openBottomSheet(
+                              title: 'Year of Birth',
+                              fieldKey: 'YOB',
+                              hintText: 'Enter year (e.g. 2000)',
+                              inputType: TextInputType.number,
+                            ),
                         trailingIcon: Icons.edit,
                       ),
                       ProfileCardW(
                         prefixIcon: Icons.lock,
                         title: 'Change Password',
                         subtitle: "*******",
-                        onTap: () {},
+                        onTap:
+                            () => _openBottomSheet(
+                              title: 'Password',
+                              fieldKey: 'password',
+                              hintText: 'Enter new password',
+                            ),
                         trailingIcon: Icons.edit,
                       ),
                       ProfileCardW(

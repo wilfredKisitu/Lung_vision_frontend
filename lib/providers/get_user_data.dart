@@ -8,7 +8,7 @@ final userServiceProvider = Provider<UserDataService>((ref) {
 });
 
 // FutureProvider to fetch user data
-final userProvider = FutureProvider<User>((ref) async {
+final getUserProvider = FutureProvider<User>((ref) async {
   final service = ref.read(userServiceProvider);
   return await service.getUserData();
 });
