@@ -60,7 +60,7 @@ class BottomNavBarState extends State<BottomNavBar> {
           return [
             SliverAppBar(
               title: _appBarWidgets[_selectedIndex], // Dynamic title
-              centerTitle: true,
+              // centerTitle: true,
               backgroundColor:
                   innerBoxIsScrolled
                       ? AppColor.primaryWhite
@@ -75,8 +75,8 @@ class BottomNavBarState extends State<BottomNavBar> {
                       ? null
                       : IconButton(
                         icon: Icon(
-                          Icons.chevron_left,
-                          size: 28,
+                          Icons.arrow_back,
+                          size: 24,
                           color:
                               innerBoxIsScrolled
                                   ? AppColor.primaryBlack

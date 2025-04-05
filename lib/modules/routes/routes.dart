@@ -7,7 +7,7 @@ import 'package:lungv_app/modules/Main/navigation.dart';
 import 'package:lungv_app/modules/Splash/splash_screen.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: '/', //
+  initialLocation: '/login', //
   routes: [
     GoRoute(path: '/main', builder: (context, state) => BottomNavBar()),
     GoRoute(path: '/', builder: (context, state) => SplashScreen()),
@@ -40,6 +40,7 @@ final GoRouter router = GoRouter(
         final String? imageUrl = state.uri.queryParameters['imageUrl'];
         final String? prediction = state.uri.queryParameters['prediction'];
         final String? confidenceStr = state.uri.queryParameters['confidence'];
+        final String? createdAt = state.uri.queryParameters['createdAt'];
         final double confidence =
             confidenceStr != null ? double.tryParse(confidenceStr) ?? 0.0 : 0.0;
 
@@ -47,6 +48,7 @@ final GoRouter router = GoRouter(
           imageUrl: imageUrl ?? '',
           prediction: prediction ?? '',
           confidence: confidence,
+          createdAt: createdAt ?? '',
         );
       },
     ),

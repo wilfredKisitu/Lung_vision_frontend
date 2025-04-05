@@ -5,11 +5,6 @@ class SymptomData {
   SymptomData({required this.symptoms, this.userId});
 
   Map<String, dynamic> toJson() {
-    return {
-      ...symptoms,
-      "userId": userId,
-    };
+    return {...symptoms, "userId": userId};
   }
 }
-
-

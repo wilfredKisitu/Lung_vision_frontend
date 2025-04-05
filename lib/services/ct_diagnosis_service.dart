@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http/http.dart' as http;
 import 'package:lungv_app/models/ct_diagnosis.dart';
 import 'package:mime/mime.dart';
@@ -37,11 +38,9 @@ class CtDiagnoseService {
         final result = CtDiagnoseResult.fromJson(json);
         return result;
       } else {
-        print("Failed to upload image: ${response.statusCode}");
         return null;
       }
     } catch (e) {
-      print("Error: $e");
       return null;
     }
   }

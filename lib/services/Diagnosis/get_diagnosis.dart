@@ -29,6 +29,8 @@ class ApiService {
       final requestBody = {...symptomData, "userId": userId};
       final url = Uri.parse("$baseUrl/diagnose");
 
+      print(requestBody);
+
       final response = await http.post(
         url,
         headers: {

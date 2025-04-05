@@ -119,7 +119,7 @@ class DiagnoseScreen extends ConsumerWidget {
                       horizontal: 20,
                     ),
                     child: SmallButton(
-                      content: (isLast) ? 'Forecast' : Icons.chevron_right,
+                      content: (isLast) ? 'Diagnose' : Icons.chevron_right,
                       onPressed: () {
                         symptomNotifier.updateSymptom(
                           symptomQuestions[currentIndex].symptom,

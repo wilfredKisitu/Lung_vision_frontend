@@ -29,12 +29,13 @@ class DetailsScreen extends ConsumerWidget {
         // title: Image.asset('assets/images/logo_small.png'),
         backgroundColor: AppColor.primaryWhite,
         // centerTitle: true,
+        title: Text('Diagnosis Details', style: AppTextStyles.navType1),
         leading: IconButton(
           onPressed: () {
             ref.watch(fetchOnHomeNavigationProvider);
             context.go('/main');
           },
-          icon: Icon(Icons.chevron_left, size: 24),
+          icon: Icon(Icons.arrow_back, size: 24),
         ),
       ),
       body: SingleChildScrollView(

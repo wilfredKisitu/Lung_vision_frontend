@@ -47,6 +47,9 @@ dependencies:
   sqflite: ^2.0.0+4
   mime: ^1.0.0
   http_parser: ^4.0.0
+  flutter_image_compress: ^2.1.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -92,6 +95,7 @@ flutter:
     - assets/images/small_logo_without_label.png
     - assets/images/ct_scan.png
     - assets/images/confidence.png
+    - assets/images/logo_48_by_48.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

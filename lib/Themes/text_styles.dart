@@ -8,9 +8,9 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
   );
   static final TextStyle navType1 = GoogleFonts.roboto(
-    fontSize: 20,
-    fontWeight: FontWeight.bold,
-    color: AppColor.primaryBlack,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColor.blackWithOpacity70,
   );
   static final TextStyle heading2 = GoogleFonts.roboto(
     fontSize: 14,
@@ -23,6 +23,11 @@ class AppTextStyles {
   static final TextStyle normalType14 = GoogleFonts.roboto(
     fontSize: 18,
     fontWeight: FontWeight.w600,
+  );
+  static final TextStyle normalTypeVar15 = GoogleFonts.roboto(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: AppColor.primaryOrange,
   );
   static final TextStyle normalTypeVar14 = GoogleFonts.roboto(
     fontSize: 14,
@@ -79,7 +84,7 @@ class AppTextStyles {
     color: AppColor.primaryOrange,
   );
   static final TextStyle headingTypeVar3 = GoogleFonts.roboto(
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: FontWeight.w600,
     color: AppColor.primaryBlack,
   );
@@ -89,7 +94,12 @@ class AppTextStyles {
     color: AppColor.primaryBlack,
   );
   static final TextStyle headingTypeVar7 = GoogleFonts.roboto(
-    fontSize: 30,
+    fontSize: 28,
+    fontWeight: FontWeight.w600,
+    color: AppColor.primaryBlack,
+  );
+  static final TextStyle headingTypeVar8 = GoogleFonts.roboto(
+    fontSize: 20,
     fontWeight: FontWeight.w600,
     color: AppColor.primaryBlack,
   );

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -45,8 +48,14 @@ class _LoginScreenState extends State<LoginScreen>
       appBar: AppBar(
         backgroundColor: AppColor.primaryWhite,
         leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.chevron_left, size: 24),
+          onPressed: () {
+            if (Platform.isAndroid) {
+              SystemNavigator.pop();
+            } else if (Platform.isIOS) {
+              exit(0);
+            }
+          },
+          icon: const Icon(Icons.arrow_back, size: 24),
         ),
       ),
       body: SingleChildScrollView(

@@ -15,6 +15,8 @@ class CtDiagnoseNotifier extends StateNotifier<CtDiagnoseResult?> {
 }
 
 final ctDiagnoseProvider =
-    StateNotifierProvider<CtDiagnoseNotifier, CtDiagnoseResult?>((ref) {
+    StateNotifierProvider.autoDispose<CtDiagnoseNotifier, CtDiagnoseResult?>((
+      ref,
+    ) {
       return CtDiagnoseNotifier(CtDiagnoseService());
     });

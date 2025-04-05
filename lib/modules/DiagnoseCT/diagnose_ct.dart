@@ -15,7 +15,7 @@ class DiagnoseCt extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final diagnosisResult = ref.watch(ctDiagnoseProvider);
 
-    Future<void> _uploadImage(File imageFile) async {
+    Future<void> uploadImage(File imageFile) async {
       await ref.read(ctDiagnoseProvider.notifier).uploadImage(imageFile);
     }
 
@@ -29,26 +29,33 @@ class DiagnoseCt extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               child: Text(
                 'Upload your CT scan for diagnosis',
-                style: AppTextStyles.normalType14,
+                style: AppTextStyles.normalTypeVar15,
               ),
             ),
+            SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                'Get to proactively know the variate of lung cancer your likely to have. Tap the image area to upload CT scan',
+                'Get to proactively know the variate of lung cancer your likely to be having. Tap the image area to upload CT scan',
                 style: AppTextStyles.normalTypeVar14,
               ),
             ),
             // image upload
-            SizedBox(height: 40),
+
             // Diagnose by ct
-            ImageUploader(
-              onImagePicked: (imageFile) {
-                _uploadImage(imageFile);
-              },
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 40.0,
+                horizontal: 20,
+              ),
+              child: ImageUploader(
+                onImagePicked: (imageFile) {
+                  uploadImage(imageFile);
+                },
+              ),
             ),
+
             // Scan for diagnosis
-            SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               child: CustomButton(
@@ -60,9 +67,10 @@ class DiagnoseCt extends ConsumerWidget {
                           final imageUrl = diagnosisResult.imageUrl;
                           final prediction = diagnosisResult.prediction;
                           final confidence = diagnosisResult.confidence;
+                          final createdAt = diagnosisResult.createdAt;
 
                           context.go(
-                            '/ct_details?imageUrl=${Uri.encodeComponent(imageUrl)}&prediction=${Uri.encodeComponent(prediction)}&confidence=${confidence.toString()}',
+                            '/ct_details?imageUrl=${Uri.encodeComponent(imageUrl)}&prediction=${Uri.encodeComponent(prediction)}&confidence=${confidence.toString()}&createdAt=${Uri.encodeComponent(createdAt)}',
                           );
                         },
               ),

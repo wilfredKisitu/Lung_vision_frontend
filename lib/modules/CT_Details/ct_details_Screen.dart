@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:lungv_app/Themes/colors.dart';
 import 'package:lungv_app/Themes/text_styles.dart';
 import 'package:lungv_app/common/count_with_unit.dart';
@@ -10,11 +11,13 @@ class CtDetailsScreen extends ConsumerWidget {
   final String imageUrl;
   final String prediction;
   final double confidence;
+  final String createdAt;
   const CtDetailsScreen({
     super.key,
     required this.imageUrl,
     required this.prediction,
     required this.confidence,
+    required this.createdAt,
   });
 
   @override
@@ -26,10 +29,10 @@ class CtDetailsScreen extends ConsumerWidget {
           return [
             SliverAppBar(
               title: Text(
-                'CT Details',
+                'CT Diagnosis Details',
                 style: AppTextStyles.navType1,
               ), // Dynamic title
-              centerTitle: true,
+              // centerTitle: true,
               backgroundColor:
                   innerBoxIsScrolled
                       ? AppColor.primaryWhite
@@ -43,7 +46,7 @@ class CtDetailsScreen extends ConsumerWidget {
                 onPressed: () {
                   context.go('/main');
                 },
-                icon: Icon(Icons.chevron_left),
+                icon: Icon(Icons.arrow_back, size: 24),
               ),
             ),
           ];
@@ -62,21 +65,16 @@ class CtDetailsScreen extends ConsumerWidget {
                       child: SizedBox(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             CountWithUnitResult(
                               count: 'CT Diagnosis',
                               unit: 'Result',
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 5,
-                              ),
-                              child: Text(
-                                // _formatDate(diagnosis.createdAt.toString()),
-                                '12 Feb, 2025',
-                                style: AppTextStyles.normal14,
-                              ),
+                            Text(
+                              _formatDate(createdAt.toString()),
+                              // '12 Feb, 2025',
+                              style: AppTextStyles.normal14,
                             ),
                           ],
                         ),
@@ -85,19 +83,15 @@ class CtDetailsScreen extends ConsumerWidget {
                     Spacer(),
                     // **Image**
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 20,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Image.asset(
                         'assets/images/ct_scan.png',
-                        height: 100,
+                        height: 70,
                       ),
                     ),
                   ],
                 ),
-                // Diagnosed with
-                SizedBox(height: 15),
+
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 0,
@@ -112,38 +106,44 @@ class CtDetailsScreen extends ConsumerWidget {
                     horizontal: 20,
                   ),
                   child: Text(
-                    prediction.toUpperCase(),
+                    // prediction.toUpperCase(),
+                    _formatPrediction(prediction.toUpperCase()),
                     style: AppTextStyles.headingTypeVar4,
                   ),
                 ),
 
                 // Image loader
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 20,
+                  ),
                   child: Center(child: NetworkImageDisplay(imageUrl: imageUrl)),
                 ),
                 // Confidence
-                SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 10,
+                    vertical: 5,
                     horizontal: 20,
                   ),
                   child: Text('Confidence', style: AppTextStyles.normal14),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 20,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset('assets/images/confidence.png', height: 80),
+                      Image.asset('assets/images/confidence.png', height: 40),
                       Spacer(),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
                           (confidence * 100).toString(),
-                          style: AppTextStyles.headingTypeVar7,
+                          style: AppTextStyles.headingTypeVar8,
                         ),
                       ),
                     ],
@@ -160,15 +160,29 @@ class CtDetailsScreen extends ConsumerWidget {
 }
 
 // formart data
-// String _formatDate(String? dateString) {
-//   if (dateString == null || dateString.isEmpty) {
-//     return 'Unknown Date';
-//   }
+String _formatDate(String? dateString) {
+  if (dateString == null || dateString.isEmpty) {
+    return 'Unknown Date';
+  }
 
-//   try {
-//     final DateTime parsedDate = DateTime.parse(dateString);
-//     return DateFormat('d MMM, yyyy').format(parsedDate);
-//   } catch (e) {
-//     return 'Invalid Date';
-//   }
-// }
+  try {
+    final DateTime parsedDate = DateTime.parse(dateString);
+    return DateFormat('d MMM, yyyy').format(parsedDate);
+  } catch (e) {
+    return 'Invalid Date';
+  }
+}
+
+String _formatPrediction(String rawPrediction) {
+  // Normalize input to uppercase to match known types
+  switch (rawPrediction.toUpperCase()) {
+    case 'SQUAMOUSCELLCARCINOMA':
+      return 'Squamous Cell Carcinoma';
+    case 'ADENOCARCINOMA':
+      return 'Adenocarcinoma';
+    case 'SMALLCELLCARCINOMA':
+      return 'Small Cell Carcinoma';
+    default:
+      return 'Unknown Type';
+  }
+}
